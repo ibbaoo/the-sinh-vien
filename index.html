@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#e7e7e7">
+<title>Thẻ sinh viên</title>
+<style>
+  :root {
+    --blue: #2385cb;
+    --label: #2a86c8;
+    --link: #1717c4;
+    --phone: #0d0bb0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body {
+    background: #111;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    user-select: none; -webkit-user-select: none;
+  }
+  /* 9:16 viewport, centered */
+  #viewport {
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    background: #e7e7e7;
+  }
+  /* Design stage: 921 x 1637 (9:16), scaled by JS */
+  #stage {
+    position: absolute; left: 0; top: 0;
+    width: 921px; height: 1637px;
+    transform-origin: 0 0;
+    background: linear-gradient(#f2f2f2 0 22px, #e7e7e7 22px);
+  }
+  .abs { position: absolute; }
+
+  /* Blue card */
+  .card {
+    left: 10px; top: 160px; width: 900px; height: 1520px;
+    background: var(--blue);
+    border-radius: 46px 46px 0 0;
+  }
+
+  /* Top nav */
+  .nav { top: 182px; height: 42px; display: flex; align-items: center; color: #fff; font-size: 27px; letter-spacing: 0.2px; white-space: nowrap; }
+  .nav svg { fill: #fff; display: block; }
+  .nav span { margin-left: 3px; }
+  .tap:active { opacity: .6; }
+
+  /* QR */
+  .qrbox { left: 221px; top: 234px; width: 480px; height: 480px; background: #fff; border-radius: 22px; }
+  .qrbox svg { position: absolute; left: 42px; top: 42px; width: 396px; height: 396px; shape-rendering: crispEdges; }
+
+  .name { left: 0; width: 921px; top: 718px; text-align: center; color: #fff; font-weight: 700; font-size: 38px; letter-spacing: 0.1px; }
+  .dob  { left: 0; width: 921px; top: 764px; text-align: center; color: #fff; font-size: 33px; letter-spacing: 0.5px; }
+
+  /* Info card */
+  .info { left: 126px; top: 809px; width: 669px; height: 145px; background: #fff; border-radius: 46px; }
+  .unit { left: 0; width: 669px; top: 2px; text-align: center; font-weight: 700; font-size: 36px; color: #000; }
+  .row  { left: 0; width: 669px; display: flex; justify-content: center; align-items: center; }
+  .mgr  { top: 46px; font-size: 33px; color: var(--link); }
+  .tel  { top: 94px; font-size: 35px; color: var(--phone); letter-spacing: 1px; text-decoration: none; }
+  .row svg { fill: #1f73b0; display: block; }
+
+  /* Bottom sheet */
+  .sheet {
+    left: 11px; top: 1120px; width: 898px; height: 560px;
+    background: #fff;
+    border: 2px solid #df3a40;
+    border-radius: 44px 44px 0 0;
+  }
+  .btn { position: absolute; text-align: center; color: var(--label); font-size: 26px; white-space: nowrap; }
+  .btn svg { fill: var(--blue); display: block; margin: 0 auto; }
+  .btn .lbl { position: absolute; left: 50%; transform: translateX(-50%); }
+</style>
+</head>
+<body>
+<div id="viewport">
+  <div id="stage">
+
+    <div class="abs card"></div>
+
+    <!-- ===== Top navigation ===== -->
+    <div class="abs nav tap" style="left:56px">
+      <!-- map -->
+      <svg width="34" height="34" viewBox="0 0 34 34"><path d="M1 6.5 11 2v26L1 32.5zM13 2l9 4v26l-9-4zM24 6l9-4v26l-9 4z"/></svg>
+      <span>Sơ đồ</span>
+    </div>
+    <div class="abs nav tap" style="left:208px">
+      <!-- crossed fork & knife -->
+      <svg width="36" height="36" viewBox="0 0 36 36">
+        <path d="M4.5 2c-1.6 1.6-2 4.6.4 7l5.6 5.6 3.4-3.4z" />
+        <path d="M2.2 31.2 21.7 11.7c-1-2.4-.4-5 1.6-7l4.6-4.6 1.5 1.5-4.4 4.5 1 1 4.5-4.4 1.4 1.4-4.4 4.5 1 1 4.5-4.4 1.5 1.5-4.6 4.6c-2 2-4.6 2.6-7 1.6L4.8 33.8z"/>
+        <path d="m15.3 18.7 3.2-3.2 13.9 14.1-3.2 3.2z"/>
+      </svg>
+      <span>Thực đơn</span>
+    </div>
+    <div class="abs nav tap" style="left:373px">
+      <!-- dashed image frame -->
+      <svg width="38" height="36" viewBox="0 0 38 36">
+        <path d="M2 2h9v3H5v6H2zM27 2h9v9h-3V5h-6zM2 25h3v6h6v3H2zM33 25h3v9h-9v-3h6z"/>
+        <path d="M14.5 2h9v3h-9zM14.5 31h9v3h-9zM2 14.5h3v7H2zM33 14.5h3v7h-3z"/>
+        <path d="M7 29l8-10 5.5 6.5 4-4.5L31 29z"/>
+        <circle cx="25" cy="11.5" r="3"/>
+      </svg>
+      <span>Ngoại khóa</span>
+    </div>
+    <div class="abs nav tap" style="left:572px">
+      <!-- question circle -->
+      <svg width="36" height="36" viewBox="0 0 36 36">
+        <path fill-rule="evenodd" d="M18 0a18 18 0 1 1 0 36 18 18 0 0 1 0-36zm-.3 7.2c-4.3 0-7.3 2.5-7.6 6.5h4.2c.2-1.9 1.5-3 3.3-3 1.9 0 3.2 1.1 3.2 2.7 0 1.4-.6 2.2-2.5 3.4-2.2 1.3-3.2 2.8-3.1 5.2v1h4.1v-.8c0-1.5.6-2.3 2.6-3.4 2.1-1.3 3.4-3 3.4-5.5 0-3.7-3.1-6.1-7.6-6.1zm-.3 18.6a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/>
+      </svg>
+      <span>Câu hỏi</span>
+    </div>
+    <div class="abs nav tap" style="left:794px">
+      <!-- info circle -->
+      <svg width="36" height="36" viewBox="0 0 36 36">
+        <path fill-rule="evenodd" d="M18 0a18 18 0 1 1 0 36 18 18 0 0 1 0-36zm-2.6 14.5v13.8h5.2V14.5zM18 7.3a2.9 2.9 0 1 0 0 5.8 2.9 2.9 0 0 0 0-5.8z"/>
+      </svg>
+    </div>
+
+    <!-- ===== QR ===== -->
+    <div class="abs qrbox"><svg id="qr" viewBox="0 0 21 21"></svg></div>
+
+    <div class="abs name">Đỗ Ngọc Nam Phương</div>
+    <div class="abs dob">20/10/2008</div>
+
+    <!-- ===== Unit / contact card ===== -->
+    <div class="abs info">
+      <div class="abs unit">Đại đội 26</div>
+      <div class="abs row mgr">
+        <!-- user-gear -->
+        <svg width="44" height="38" viewBox="0 0 44 38" style="margin-right:6px">
+          <circle cx="15" cy="9" r="8.5"/>
+          <path d="M0 33c0-8 5-13 11-13h8c2 0 3.5.4 5 1.2-2.6 2.4-4 5.6-4 9.3 0 1.3.2 2.5.6 3.5H0z"/>
+          <path fill-rule="evenodd" d="M31.5 19l2.4.4.6 2.7 1.6.9 2.6-.9 1.6 1.9-1.4 2.4v1.8l1.4 2.4-1.6 1.9-2.6-.9-1.6.9-.6 2.7-2.4.4-2.4-.4-.6-2.7-1.6-.9-2.6.9-1.6-1.9 1.4-2.4v-1.8l-1.4-2.4 1.6-1.9 2.6.9 1.6-.9.6-2.7zm0 7.2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6z"/>
+        </svg>
+        <span>Trần Tiến Dũng</span>
+      </div>
+      <a class="abs row tel" href="tel:0964669559">
+        <!-- phone -->
+        <svg width="40" height="40" viewBox="0 0 40 40" style="margin-right:8px">
+          <path d="M8.2 1.2c1.2-.6 2.6-.3 3.4.8l5 6.8c.8 1.1.7 2.6-.2 3.6l-2.9 3.1c1.9 4.2 5.2 7.7 9.3 9.8l3.1-2.9c1-.9 2.5-1 3.6-.2l6.8 5c1.1.8 1.4 2.2.8 3.4l-1.6 3.4c-1 2.1-3.3 3.3-5.6 2.9C14.3 36.9 3.1 25.7 1.1 10.1.8 7.8 2 5.5 4 4.5z"/>
+        </svg>
+        <span>0964669559</span>
+      </a>
+    </div>
+
+    <!-- ===== Bottom sheet ===== -->
+    <div class="abs sheet"></div>
+
+    <!-- Vắng học -->
+    <div class="btn tap" style="left:58px; top:1149px; width:164px">
+      <svg width="162" height="150" viewBox="0 0 162 150">
+        <path d="M2 26c22-6 48-6 74 6v114c-25-10-51-11-74-6c-1.3.3-2-.4-2-1.6V27.8c0-.9.7-1.6 2-1.8z"/>
+        <path d="M94 46 128 0v94l-34 44z"/>
+        <path d="M80 148c25-13 55-18 80-10.5 1.2.4 2-.3 2-1.5V30c0-1.2-.8-2-2-2.4l-10-2.8V122c-22-1-44 4-62 14l-8 4.5z"/>
+      </svg>
+      <div class="lbl" style="top:169px">Vắng học</div>
+    </div>
+
+    <!-- Y tế -->
+    <div class="btn tap" style="left:279px; top:1156px; width:150px">
+      <svg width="148" height="147" viewBox="0 0 148 147">
+        <path fill-rule="evenodd" d="M62 0h24c8 0 13 5 13 13v12H49V13c0-8 5-13 13-13zm0 10c-2 0-3 1-3 3v12h30V13c0-2-1-3-3-3z"/>
+        <rect y="25" width="148" height="122" rx="13"/>
+        <path fill="#fff" d="M67 59h14v22h22v14H81v22H67V95H45V81h22z"/>
+      </svg>
+      <div class="lbl" style="top:162px">Y tế</div>
+    </div>
+
+    <!-- Quân trang -->
+    <div class="btn tap" style="left:499px; top:1147px; width:136px">
+      <svg width="135" height="150" viewBox="0 0 135 150">
+        <path fill-rule="evenodd" d="M14 13h36c2-8 9-13 17.5-13S83 5 85 13h36c8 0 14 6 14 14v109c0 8-6 14-14 14H14c-8 0-14-6-14-14V27c0-8 6-14 14-14zm53.5-6a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15z"/>
+        <g fill="#fff"><rect x="30" y="43" width="76" height="12" rx="2"/><rect x="30" y="72" width="76" height="12" rx="2"/><rect x="30" y="101" width="54" height="12" rx="2"/></g>
+      </svg>
+      <div class="lbl" style="top:171px">Quân trang</div>
+    </div>
+
+    <!-- Đơn ra vào cổng -->
+    <div class="btn tap" style="left:706px; top:1170px; width:149px">
+      <svg width="148" height="118" viewBox="0 0 148 118">
+        <rect width="148" height="118" rx="14"/>
+        <path fill="none" stroke="#fff" stroke-width="13" stroke-linejoin="round" d="M13 18l61 38 61-38"/>
+      </svg>
+      <div class="lbl" style="top:148px">Đơn ra vào cổng</div>
+    </div>
+
+    <!-- DS SV Phòng -->
+    <div class="btn tap" style="left:400px; top:1370px; width:121px">
+      <svg width="120" height="133" viewBox="0 0 120 133">
+        <path d="M60 0 120 43v90H0V43z"/>
+        <g fill="#fff">
+          <rect x="24" y="58" width="8" height="49"/>
+          <circle cx="42" cy="75" r="9.5"/>
+          <path d="M32 84h48c8 0 16 5 16 13v10h-8v-9H32z"/>
+          <rect x="88" y="82" width="8" height="25"/>
+        </g>
+      </svg>
+      <div class="lbl" style="top:150px">DS SV Phòng</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // QR code module matrix (21x21), read from the source screenshot
+  const QR = [
+    "111111100100101111111",
+    "100000100111001000001",
+    "101110101110101011101",
+    "101110101100001011101",
+    "101110101100101011101",
+    "100000101101001000001",
+    "111111101010101111111",
+    "000000001100000000000",
+    "101111100001001111100",
+    "000100001101111000111",
+    "110110110000101100001",
+    "100110001111111000000",
+    "011111111000100101000",
+    "000000001000100100110",
+    "111111100101010010101",
+    "100000101110000110101",
+    "101110101101010010100",
+    "101110101011111100100",
+    "101110101010101100000",
+    "100000100001111101110",
+    "111111101110100101100"
+  ];
+  let d = "";
+  QR.forEach((row, y) => [...row].forEach((c, x) => { if (c === "1") d += `M${x} ${y}h1v1h-1z`; }));
+  document.getElementById("qr").innerHTML = `<path d="${d}" fill="#000"/>`;
+
+  // Fit the 921x1637 stage into a 9:16 box that fills the screen
+  const vp = document.getElementById("viewport"), st = document.getElementById("stage");
+  function fit() {
+    const W = innerWidth, H = innerHeight;
+    const w = Math.min(W, H * 9 / 16), h = w * 16 / 9;
+    vp.style.width = w + "px"; vp.style.height = h + "px";
+    st.style.transform = `scale(${w / 921})`;
+  }
+  addEventListener("resize", fit); fit();
+</script>
+</body>
+</html>
